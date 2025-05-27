@@ -64,13 +64,13 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      
+  
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5B00C2062B6746B39A1A1C7DF0E64C7A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E30B535BE3714449B9DD2FF6E60EE923 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C71B83B4F16742ECB24C2963183B5A3D }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -78,4 +78,4 @@ jobs:
         with:
           app-name: 'genesys-connector-fei'
           slot-name: 'Production'
-          
+          startup-command: 'python wss_app.py'
