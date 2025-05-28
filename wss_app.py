@@ -69,9 +69,9 @@ async def websocket_handler(request):
     ).digest()
     computed_signature = base64.b64encode(digest).decode()
 
-    if computed_signature != signature:
-        logger.info("Invalid signature for API Key: %s", api_key)
-        return web.Response(text="Invalid Signature", status=401)
+    # if computed_signature != signature:
+    #     logger.info("Invalid signature for API Key: %s", api_key)
+    #     return web.Response(text="Invalid Signature", status=401)
 
     # 验证通过，建立 WebSocket 连接
     ws = web.WebSocketResponse()

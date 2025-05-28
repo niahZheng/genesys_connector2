@@ -6,12 +6,12 @@ from aiohttp import ClientSession, WSMsgType
 
 API_KEY = "SGVsbG8sIEkgYW0gdGhlIEFQSSBrZXkh"
 CLIENT_SECRET = "TXlTdXBlclNlY3JldEtleVRlbGxOby0xITJAMyM0JDU="
-WS_URL = "wss://webapp.74.179.236.185.sslip.io/ws"
+WS_URL = "wss://genesys-connector-fei-cxhnduhzcseyfffy.australiacentral-01.azurewebsites.net/ws"
 
 def generate_signature():
     signature_string = (
         "(request-target): get /ws\n"
-        "authority: webapp.74.179.236.185.sslip.io"
+        "authority: genesys-connector-fei-cxhnduhzcseyfffy.australiacentral-01.azurewebsites.net"
     )
     digest = hmac.new(
         CLIENT_SECRET.encode(),
@@ -22,23 +22,23 @@ def generate_signature():
 
 async def websocket_client():
     signature = generate_signature()
-    
+    print(f"Generated Signature: {signature}")
     headers = {
         "X-API-KEY": API_KEY,
-        "Signature": f'headers="(request-target) authority", '
-                    f'algorithm="hmac-sha256", '
-                    f'signature="{signature}"',
-        "Host": "webapp.74.179.236.185.sslip.io"
+        # "Signature": f'headers="(request-target) authority", '
+        #             f'algorithm="hmac-sha256", '
+        #             f'signature="{signature}"',
+        # "Host": "webapp.74.179.236.185.sslip.io"
     }
 
     async with ClientSession() as session:
         try:
             async with session.ws_connect(WS_URL, headers=headers) as ws:
-                print("连接成功")
+                print("successfully connected to WebSocket server")
                 await ws.send_str("Hello Server!1214")
                 async for msg in ws:
                     if msg.type == WSMsgType.TEXT:
-                        print(f"收到响应: {msg.data}")
+                        print(f"Got the result: {msg.data}")
                         break
         except Exception as e:
             print(f"失败: {str(e)}")
