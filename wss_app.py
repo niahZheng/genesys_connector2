@@ -29,45 +29,45 @@ async def websocket_handler(request):
     client_secret = credentials[api_key]
 
     # 验证签名
-    signature_header = request.headers.get("Signature")
-    if not signature_header:
-        return web.Response(text="Missing Signature", status=401)
+    # signature_header = request.headers.get("Signature")
+    # if not signature_header:
+    #     return web.Response(text="Missing Signature", status=401)
 
     # 解析签名头
-    signature_parts = {}
-    for part in signature_header.split(","):
-        key, value = part.strip().split("=", 1)
-        signature_parts[key] = value.strip('"')
+    # signature_parts = {}
+    # for part in signature_header.split(","):
+    #     key, value = part.strip().split("=", 1)
+    #     signature_parts[key] = value.strip('"')
 
-    required_headers = signature_parts.get("headers", "").split()
-    algorithm = signature_parts.get("algorithm", "")
-    signature = signature_parts.get("signature", "")
+    # required_headers = signature_parts.get("headers", "").split()
+    # algorithm = signature_parts.get("algorithm", "")
+    # signature = signature_parts.get("signature", "")
 
     # 构造签名字符串
-    elements = []
-    for h in required_headers:
-        if h == "(request-target)":
-            method = request.method.lower()
-            path = request.path
-            elements.append(f"(request-target): {method} {path}")
-        elif h == "authority":
-            elements.append(f"authority: {request.host}")
-        else:
-            header_value = request.headers.get(h.replace("-", "_").upper(), "")
-            elements.append(f"{h}: {header_value}")
+    # elements = []
+    # for h in required_headers:
+    #     if h == "(request-target)":
+    #         method = request.method.lower()
+    #         path = request.path
+    #         elements.append(f"(request-target): {method} {path}")
+    #     elif h == "authority":
+    #         elements.append(f"authority: {request.host}")
+    #     else:
+    #         header_value = request.headers.get(h.replace("-", "_").upper(), "")
+    #         elements.append(f"{h}: {header_value}")
 
-    signature_string = "\n".join(elements)
+    # signature_string = "\n".join(elements)
 
     # 计算 HMAC
-    if algorithm != "hmac-sha256":
-        return web.Response(text="Unsupported Algorithm", status=401)
+    # if algorithm != "hmac-sha256":
+    #     return web.Response(text="Unsupported Algorithm", status=401)
 
-    digest = hmac.new(
-        client_secret.encode(), 
-        signature_string.encode(), 
-        hashlib.sha256
-    ).digest()
-    computed_signature = base64.b64encode(digest).decode()
+    # digest = hmac.new(
+    #     client_secret.encode(), 
+    #     signature_string.encode(), 
+    #     hashlib.sha256
+    # ).digest()
+    # computed_signature = base64.b64encode(digest).decode()
 
     # if computed_signature != signature:
     #     logger.info("Invalid signature for API Key: %s", api_key)
