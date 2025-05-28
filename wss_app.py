@@ -3,6 +3,8 @@ from aiohttp import web
 import hmac
 import hashlib
 import base64
+import os
+import asyncio
 
 
 # 配置结构化日志
@@ -85,5 +87,17 @@ async def websocket_handler(request):
 app = web.Application()
 app.router.add_get("/ws", websocket_handler)
 
+async def heartbeat():
+    while True:
+        logger.info("WebSocket 服务心跳正常")
+        await asyncio.sleep(30)  # 每30秒打印一次心跳
+
 if __name__ == "__main__":
-    web.run_app(app,host='0.0.0.0', port=80)
+    port = int(os.environ.get("PORT", 80))
+    logger.info(f"WebSocket 服务已启动，监听 0.0.0.0:{port}")
+
+    async def main():
+        asyncio.create_task(heartbeat())
+        await web._run_app(app, host='0.0.0.0', port=port)
+
+    asyncio.run(main())
