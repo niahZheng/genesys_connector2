@@ -72,13 +72,12 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3E5C1897B1A042489AA5DA7D0581F00E }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_259D417F7EAF42099B89D1B59951FC00 }}
 
-      - name: Set Azure App Service startup command
-        run: |
-          az webapp config set --name genesys-connector-2 --resource-group DF-Test --startup-file "python wss_app.py"
-
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'genesys-connector-2'
           slot-name: 'Production'
+          startup-command: 'python wss_app.py'
+
+        
