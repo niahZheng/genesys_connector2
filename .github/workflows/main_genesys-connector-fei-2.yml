@@ -77,5 +77,6 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'genesys-connector-fei-2'
-          slot-name: 'Production'
+          slot-name: 'Production'          
+          startup-command: 'python wss_app.py'
           

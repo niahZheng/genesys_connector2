@@ -8,7 +8,7 @@ API_KEY = "SGVsbG8sIEkgYW0gdGhlIEFQSSBrZXkh"
 CLIENT_SECRET = "TXlTdXBlclNlY3JldEtleVRlbGxOby0xITJAMyM0JDU="
 # WS_URL = "wss://genesys-connector-fei-cxhnduhzcseyfffy.australiacentral-01.azurewebsites.net/ws"
 # WS_URL = "ws://localhost/ws"
-WS_URL = "wss://watson-stt-stream-connector-liping-3.azurewebsites.net:433/ws"
+WS_URL = "wss://watson-stt-stream-connector-liping-4.azurewebsites.net:443/ws"
 
 def generate_signature():
     signature_string = (
