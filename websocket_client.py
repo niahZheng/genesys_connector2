@@ -6,8 +6,8 @@ from aiohttp import ClientSession, WSMsgType
 
 API_KEY = "SGVsbG8sIEkgYW0gdGhlIEFQSSBrZXkh"
 CLIENT_SECRET = "TXlTdXBlclNlY3JldEtleVRlbGxOby0xITJAMyM0JDU="
-# WS_URL = "wss://genesys-connector-fei-cxhnduhzcseyfffy.australiacentral-01.azurewebsites.net/ws"
-WS_URL = "ws://localhost/ws"
+WS_URL = "wss://genesys-connector-fei-cxhnduhzcseyfffy.australiacentral-01.azurewebsites.net/ws"
+# WS_URL = "ws://localhost/ws"
 
 def generate_signature():
     signature_string = (

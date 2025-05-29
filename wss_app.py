@@ -94,7 +94,7 @@ async def heartbeat():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 80))
-    logger.info(f"WebSocket 服务已启动，监听 0.0.0.0:{port}")
+    logger.info(f"WebSocket service is start，监听 0.0.0.0:{port}")
 
     async def main():
         asyncio.create_task(heartbeat())
