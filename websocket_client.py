@@ -7,7 +7,8 @@ from aiohttp import ClientSession, WSMsgType
 API_KEY = "SGVsbG8sIEkgYW0gdGhlIEFQSSBrZXkh"
 CLIENT_SECRET = "TXlTdXBlclNlY3JldEtleVRlbGxOby0xITJAMyM0JDU="
 # WS_URL = "wss://watson-stt-stream-connector-liping-1-b5fwckcngpe3enew.canadaeast-01.azurewebsites.net:443"
-WS_URL="wss://genesys-connector-2-buhkgbfvfbeughe5.canadaeast-01.azurewebsites.net"
+WS_URL="wss://genesys-connector-2-buhkgbfvfbeughe5.canadaeast-01.azurewebsites.net/ws"
+# WS_URL="ws://localhost"
 
 def generate_signature():
     signature_string = (
