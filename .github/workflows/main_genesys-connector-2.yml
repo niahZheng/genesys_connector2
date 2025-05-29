@@ -76,7 +76,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'genesys-connector-fei-2'
+          app-name: 'genesys-connector-2'
           slot-name: 'Production'          
           startup-command: 'python wss_app.py'
-          
