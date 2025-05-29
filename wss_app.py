@@ -89,7 +89,7 @@ app.router.add_get("/ws", websocket_handler)
 
 async def heartbeat():
     while True:
-        logger.info("WebSocket 服务心跳正常")
+        logger.info("WebSocket 服务心跳正常.")
         await asyncio.sleep(30)  # 每30秒打印一次心跳
 
 if __name__ == "__main__":
