@@ -70,4 +70,4 @@ jobs:
           app-name: 'watson-stt-stream-connector-liping-4'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F371B9AC00A4EB4B513721F3B80366D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_80C2EDCC474D43B2A69B01B827CF5AC8 }}
