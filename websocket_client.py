@@ -6,14 +6,12 @@ from aiohttp import ClientSession, WSMsgType
 
 API_KEY = "SGVsbG8sIEkgYW0gdGhlIEFQSSBrZXkh"
 CLIENT_SECRET = "TXlTdXBlclNlY3JldEtleVRlbGxOby0xITJAMyM0JDU="
-# WS_URL = "wss://genesys-connector-fei-cxhnduhzcseyfffy.australiacentral-01.azurewebsites.net/ws"
-# WS_URL = "ws://localhost/ws"
-WS_URL = "wss://watson-stt-stream-connector-liping-4.azurewebsites.net:443/ws"
+# WS_URL = "wss://watson-stt-stream-connector-liping-1-b5fwckcngpe3enew.canadaeast-01.azurewebsites.net:443"
+WS_URL="ws://localhost"
 
 def generate_signature():
     signature_string = (
         "(request-target): get /ws\n"
-        "authority: watson-stt-stream-connector-liping-3.azurewebsites.net"
     )
     digest = hmac.new(
         CLIENT_SECRET.encode(),
@@ -27,20 +25,30 @@ async def websocket_client():
     print(f"Generated Signature: {signature}")
     headers = {
         "X-API-KEY": API_KEY,
-        # "Signature": f'headers="(request-target) authority", '
-        #             f'algorithm="hmac-sha256", '
-        #             f'signature="{signature}"',
-        # "Host": "webapp.74.179.236.185.sslip.io"
     }
 
     async with ClientSession() as session:
         try:
             async with session.ws_connect(WS_URL, headers=headers) as ws:
                 print("successfully connected to WebSocket server")
+                # 启动心跳协程
+                async def heartbeat():
+                    while True:
+                        await ws.send_str("ping")
+                        print("Sent heartbeat ping")
+                        await asyncio.sleep(30)  # 每30秒发送一次心跳
+
+                heartbeat_task = asyncio.create_task(heartbeat())
+
                 await ws.send_str("Hello Server!1214")
                 async for msg in ws:
                     if msg.type == WSMsgType.TEXT:
                         print(f"Got the result: {msg.data}")
+                    elif msg.type == WSMsgType.CLOSED:
+                        print("WebSocket closed by server")
+                        break
+                    elif msg.type == WSMsgType.ERROR:
+                        print(f"WebSocket error: {ws.exception()}")
                         break
         except Exception as e:
             print(f"失败: {str(e)}")
