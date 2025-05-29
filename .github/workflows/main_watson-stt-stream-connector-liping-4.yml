@@ -71,3 +71,4 @@ jobs:
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_80C2EDCC474D43B2A69B01B827CF5AC8 }}
+          startup-command: 'python wss_app.py'
